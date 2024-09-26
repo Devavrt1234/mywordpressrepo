@@ -19,7 +19,7 @@ phases:
       - sudo -u www-data tar -zx -C /srv/www --strip-components=1 -f
         latest.tar.gz
       - rm latest.tar.gz
-      - - echo Configuring Apache for WordPress...
+      - echo Configuring Apache for WordPress...
       - echo "<VirtualHost *:80>
           DocumentRoot /srv/www
           <Directory /srv/www>
