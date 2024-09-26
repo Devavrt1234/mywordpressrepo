@@ -24,9 +24,9 @@ phases:
                                 php-zip
       - echo Installing Composer...
       - curl -sS https://getcomposer.org/installer | php
-      - mv composer.phar /usr/local/bin/composer
+      - sudo mv composer.phar /usr/local/bin/composer
       - echo Installing PHP dependencies...
-      - composer install --no-dev
+      - sudo composer install --no-dev
       
       - echo Creating WordPress directory...
       - sudo mkdir -p /srv/www
@@ -56,7 +56,6 @@ phases:
       - sudo a2enmod rewrite
       - sudo systemctl daemon-reload
       - sudo a2dissite 000-default
-      - sudo systemctl daemon-reload  # Reload systemd manager configuration
       - sudo service apache2 reload
 
   build:
@@ -84,9 +83,9 @@ phases:
 
       - echo "Adding authentication keys to wp-config.php..."
       - AUTH_KEYS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
-      - sudo -u www-data sed -i "/AUTH_KEY/a $AUTH_KEYS" /srv/www/wp-config.php
+      - echo "$AUTH_KEYS" | sudo -u www-data tee -a /srv/www/wp-config.php
 
 artifacts:
   files:
     - '**/*'
-  base-directory: '/srv/www' # Adjust this to your WordPress root directory
+ 
