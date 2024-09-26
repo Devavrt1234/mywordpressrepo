@@ -6,8 +6,8 @@ set -e
 echo "Starting Apache configuration for WordPress..."
 
 # Variables (you can modify these according to your setup)
-DOMAIN="example.com"            # Replace with your domain or leave as default for localhost
-DOCUMENT_ROOT="/srv/www"        # WordPress document root
+ 
+DOCUMENT_ROOT="/srv/www/wordpress"        # WordPress document root
 APACHE_CONF="/etc/apache2/sites-available/wordpress.conf"
 APACHE_DEFAULT_CONF="/etc/apache2/sites-enabled/000-default.conf"
 
@@ -27,9 +27,9 @@ echo "Creating Apache virtual host configuration for WordPress..."
 
 sudo bash -c "cat > $APACHE_CONF <<EOF
 <VirtualHost *:80>
-    ServerAdmin webmaster@$DOMAIN
+   
     DocumentRoot $DOCUMENT_ROOT
-    ServerName $DOMAIN
+   
 
     <Directory $DOCUMENT_ROOT>
         Options FollowSymLinks
