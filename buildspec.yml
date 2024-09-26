@@ -26,7 +26,7 @@ phases:
       - curl -sS https://getcomposer.org/installer | php
       - sudo mv composer.phar /usr/local/bin/composer
       - echo Installing PHP dependencies...
-      - sudo composer install --no-dev
+      - composer install --no-dev  # Removed sudo
       
       - echo Creating WordPress directory...
       - sudo mkdir -p /srv/www
@@ -65,27 +65,29 @@ phases:
   post_build:
     commands:
       - echo "Configuring WordPress wp-config.php..."
-      - RDS_HOST="database-3.ctqy8yuk4ky9.eu-north-1.rds.amazonaws.com"      # Replace with your RDS endpoint
+      
+      # Declare environment variables correctly
+      - RDS_HOST="database-3.ctqy8yuk4ky9.eu-north-1.rds.amazonaws.com"  # Replace with your RDS endpoint
       - RDS_DB_NAME="wordpress"            # Set the database name directly here
-      - RDS_USER="admin"            # Replace with your database username
-      - RDS_PASSWORD="12345678"    # Replace with your database password
+      - RDS_USER="admin"                   # Replace with your database username
+      - RDS_PASSWORD="12345678"            # Replace with your database password
 
       - WP_CONFIG_FILE="/srv/www/wp-config.php" # Adjust this path
 
       - echo "Copying wp-config-sample.php to wp-config.php..."
-      - sudo -u www-data cp /srv/www/wp-config-sample.php /srv/www/wp-config.php
+      - sudo cp /srv/www/wp-config-sample.php $WP_CONFIG_FILE
 
       - echo "Updating wp-config.php with database credentials..."
-      - sudo -u www-data sed -i "s/database_name_here/$RDS_DB_NAME/" /srv/www/wp-config.php
-      - sudo -u www-data sed -i "s/username_here/$RDS_USER/" /srv/www/wp-config.php
-      - sudo -u www-data sed -i "s/password_here/$RDS_PASSWORD/" /srv/www/wp-config.php
-      - sudo -u www-data sed -i "s/localhost/$RDS_HOST/" /srv/www/wp-config.php
+      - sudo sed -i "s/database_name_here/$RDS_DB_NAME/" $WP_CONFIG_FILE
+      - sudo sed -i "s/username_here/$RDS_USER/" $WP_CONFIG_FILE
+      - sudo sed -i "s/password_here/$RDS_PASSWORD/" $WP_CONFIG_FILE
+      - sudo sed -i "s/localhost/$RDS_HOST/" $WP_CONFIG_FILE
 
       - echo "Adding authentication keys to wp-config.php..."
-      - AUTH_KEYS: "$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)"
-      - echo "$AUTH_KEYS" | sudo -u www-data tee -a /srv/www/wp-config.php
+      # Correctly fetch and append authentication keys
+      AUTH_KEYS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
+      echo "$AUTH_KEYS" | sudo tee -a $WP_CONFIG_FILE
 
 artifacts:
   files:
     - '**/*'
- 
