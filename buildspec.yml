@@ -28,7 +28,7 @@ phases:
         tee /etc/apache2/sites-available/wordpress.conf
       - sudo a2ensite wordpress
       - sudo a2enmod rewrite
-      - sudo systemctl daemon-reload
+      - systemctl daemon-reload
       - sudo a2dissite 000-default
       - sudo service apache2 reload
   build:
