@@ -84,7 +84,6 @@ phases:
       - sudo sed -i "s/localhost/$RDS_HOST/" $WP_CONFIG_FILE
 
       - echo "Adding authentication keys to wp-config.php..."
-      # Correctly fetch and append authentication keys
         AUTH_KEYS: "$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)"
         echo "$AUTH_KEYS" | sudo tee -a $WP_CONFIG_FILE
 
