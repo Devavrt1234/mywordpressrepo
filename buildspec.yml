@@ -42,11 +42,11 @@ phases:
   post_build:
     commands:
       - echo "Configuring WordPress wp-config.php..."
-      - RDS_HOST: database-3.ctqy8yuk4ky9.eu-north-1.rds.amazonaws.com
-      - RDS_DB_NAME: wordpress
-      - RDS_USER: admin
-      - RDS_PASSWORD: "12345678"
-      - WP_CONFIG_FILE: /srv/www/wp-config.php
+      - RDS_HOST="database-3.ctqy8yuk4ky9.eu-north-1.rds.amazonaws.com"
+      - RDS_DB_NAME="wordpress"
+      - RDS_USER="admin"
+      - RDS_PASSWORD="12345678"
+      - WP_CONFIG_FILE="/srv/www/wp-config.php"
       - echo "Copying wp-config-sample.php to wp-config.php..."
       - sudo -u www-data cp /srv/www/wp-config-sample.php /srv/www/wp-config.php
       - echo "Updating wp-config.php with database credentials..."
