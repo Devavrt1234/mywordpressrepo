@@ -2,10 +2,10 @@ version: 0.0
 os: linux
 files:
   - source: / # The source directory in your revision (S3, Git, etc.)
-    destination: /srv/www # Destination on the EC2 instance
+    destination: /var/www/html # Destination on the EC2 instance
 
 permissions:
-  - object: /srv/www
+  - object: /var/www/html
     owner: www-data
     group: www-data
     mode: 755
