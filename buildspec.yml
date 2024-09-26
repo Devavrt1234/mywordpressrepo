@@ -82,7 +82,7 @@ phases:
       - sudo -u www-data sed -i "s/localhost/$RDS_HOST/" /srv/www/wp-config.php
 
       - echo "Adding authentication keys to wp-config.php..."
-      - AUTH_KEYS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
+      - AUTH_KEYS: "$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)"
       - echo "$AUTH_KEYS" | sudo -u www-data tee -a /srv/www/wp-config.php
 
 artifacts:
