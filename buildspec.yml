@@ -8,8 +8,8 @@ phases:
       - echo Updating package index...
       - sudo apt-get update -y
       - echo Installing necessary packages...
-      - sudo apt update
-      - sudo apt install apache2 \
+      - sudo apt-get update
+      - sudo apt-get install apache2 \
                  ghostscript \
                  libapache2-mod-php \
                  mysql-server \
