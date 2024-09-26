@@ -34,12 +34,12 @@ phases:
           </Directory>
         </VirtualHost>" | sudo tee /etc/apache2/sites-available/wordpress.conf
       - sudo a2ensite wordpress
-      - sudo systemctl restart apache2
+      - service apache2 reload
       - sudo a2enmod rewrite
-      - sudo systemctl restart apache2
+      - service apache2 reload
       - sudo a2dissite 000-default
-      - sudo systemctl restart apache2
-      - sudo systemctl status apache2
+      - service apache2 reload
+      
   build:
     commands:
       - echo Build phase complete.
