@@ -9,8 +9,8 @@ phases:
       - sudo apt-get update -y
       - echo Installing necessary packages...
       - sudo apt-get update
-      - sudo apt install mariadb-server mariadb-client
-      - sudo apt install php php-mysql
+      - sudo apt install -y mariadb-server mariadb-client
+      - sudo apt install -y php php-mysql
       - echo Installing Composer...
       - curl -sS https://getcomposer.org/installer | php
       - sudo mv composer.phar /usr/local/bin/composer
