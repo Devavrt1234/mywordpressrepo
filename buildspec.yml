@@ -15,7 +15,7 @@ phases:
             - 'composer install --no-dev'
             - 'echo Creating WordPress directory...'
             - 'sudo mkdir -p /srv/www'
-            - 'sudo chown www-data': /srv/www' 
+            - { 'sudo chown www-data': /srv/www }
             - 'echo Downloading and extracting WordPress...'
             - 'curl -o latest.tar.gz https://wordpress.org/latest.tar.gz'
             - 'sudo -u www-data tar -zx -C /srv/www --strip-components=1 -f latest.tar.gz'
