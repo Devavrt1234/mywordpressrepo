@@ -8,9 +8,21 @@ phases:
       - echo Updating package index...
       - sudo apt-get update -y
       - echo Installing necessary packages...
-      - sudo apt-get install -y apache2 \ ghostscript \ libapache2-mod-php \
-        mysql-server \ php \ php-bcmath \ php-curl \ php-imagick \ php-intl \
-        php-json \ php-mbstring \ php-mysql \ php-xml \ php-zip
+      - sudo apt update
+      - sudo apt install apache2 \
+                 ghostscript \
+                 libapache2-mod-php \
+                 mysql-server \
+                 php \
+                 php-bcmath \
+                 php-curl \
+                 php-imagick \
+                 php-intl \
+                 php-json \
+                 php-mbstring \
+                 php-mysql \
+                 php-xml \
+                 php-zip
       - echo Installing Composer...
       - curl -sS https://getcomposer.org/installer | php
       - sudo mv composer.phar /usr/local/bin/composer
@@ -57,6 +69,9 @@ phases:
       - sudo -u www-data sed -i "s/password_here/$RDS_PASSWORD/"
         /srv/www/wp-config.php
       - sudo -u www-data sed -i "s/localhost/$RDS_HOST/" /srv/www/wp-config.php
+      - echo "Adding authentication keys to wp-config.php..."
+      - AUTH_KEYS="$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)"
+      - echo "$AUTH_KEYS" | sudo tee -a $WP_CONFIG_FILE
      
 artifacts:
   files:
