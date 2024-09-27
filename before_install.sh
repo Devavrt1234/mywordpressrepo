@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "Stopping Apache"
-sudo service apache2 stop
+sudo apt-get install apache2
+
