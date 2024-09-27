@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: / # The source directory in your revision (S3, Git, etc.)
-    destination: /var/www/html # Destination on the EC2 instance
+    destination: /home/ubuntu # Destination on the EC2 instance
 
 permissions:
   - object: /var/www/html
